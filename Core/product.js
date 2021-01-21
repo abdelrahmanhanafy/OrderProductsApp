@@ -1,28 +1,31 @@
 const Sequelize = require('sequelize');
 const db = require('../Config/database');
 
-const User = db.define(
-  'User',
+const Product = db.define(
+  'Product',
   {
     // Model attributes are defined here
-    email: {
+    name: {
       type: Sequelize.STRING,
       allowNull: false,
+      unique: true,
+      len: [1, 20],
     },
-    password: {
-      type: Sequelize.STRING(1234),
-      allowNull: false,
+    category: {
+      type: Sequelize.STRING,
     },
-    balance: {
-      type: Sequelize.FLOAT,
+    brand: {
+      type: Sequelize.STRING,
+    },
+    price: {
+      type: Sequelize.DECIMAL(4, 4),
       allowNull: false,
-      defaultValue: 0,
     },
   },
   {
-    tableName: 'Users',
+    tableName: 'Products',
   }
 );
-console.log(User === db.models.User); // true
+console.log(Product === db.models.Product); // true
 
-module.exports = User;
+module.exports = Product;

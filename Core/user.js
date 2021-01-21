@@ -8,13 +8,20 @@ const User = db.define(
     email: {
       type: Sequelize.STRING,
       allowNull: false,
+      unique: true,
+      len: [3, 10],
+      validate: {
+        notNull: { msg: 'User must have an email' },
+        notEmpty: { msg: 'User must not be empty ' },
+        isEmail: { msg: 'Must be a valid email address' },
+      },
     },
     password: {
       type: Sequelize.STRING(1234),
       allowNull: false,
     },
     balance: {
-      type: Sequelize.FLOAT,
+      type: Sequelize.DECIMAL(4, 2),
       allowNull: false,
       defaultValue: 0,
     },

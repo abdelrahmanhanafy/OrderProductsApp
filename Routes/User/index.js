@@ -1,18 +1,22 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const schema = require('./schema');
-const UserRepo = require('../Repository/user');
-const User = require('../Core/user');
+const UserRepo = require('../../Repository/user');
+const User = require('../../Core/user');
 
 const userRepo = new UserRepo();
 const router = express.Router();
 
 router.post('/register', schema.validateUserCredentials(), async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, balance } = req.body;
     const userFound = await userRepo.findByEmail(email);
     if (userFound) throw new Error('User already registered');
-    const user = await userRepo.createUser({ email: email && email.toLowerCase(), password });
+    const user = await userRepo.createUser({
+      email: email && email.toLowerCase(),
+      password,
+      balance,
+    });
     res.send(user);
   } catch (err) {
     console.log(err);

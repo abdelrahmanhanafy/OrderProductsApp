@@ -2,9 +2,9 @@ const User = require('../Core/user');
 const crypto = require('crypto');
 
 module.exports = class UserRepo {
-  async createUser({ email, password }) {
+  async createUser({ email, password, balance }) {
     const hash = crypto.pbkdf2Sync(password, process.env.SALT, 500, 512, 'sha512').toString('hex');
-    const user = await User.create({ email, password: hash });
+    const user = await User.create({ email, password: hash, balance });
     return user.toJSON();
   }
   async findByEmail(email) {

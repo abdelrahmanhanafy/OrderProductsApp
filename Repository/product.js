@@ -1,19 +1,23 @@
-const User = require('../Core/user');
-const crypto = require('crypto');
+const Product = require('../Core/product');
+const { Op } = require('sequelize');
 
-module.exports = class UserRepo {
-  async createUser({ email, password }) {
-    const hash = crypto.pbkdf2Sync(password, process.env.SALT, 500, 512, 'sha512').toString('hex');
-    const user = await User.create({ email, password: hash });
-    return user.toJSON();
+module.exports = class ProductRepo {
+  async getProducts(offset, limit, name, category, brand, balance) {
+    const options = {
+      where: {
+        price: { [Op.lte]: balance },
+        name: { [Op.like]: `%${name ? name.trim() : ''}%` },
+        brand: { [Op.like]: `%${brand ? brand.trim() : ''}%` },
+        category: { [Op.like]: `%${category ? category.trim() : ''}%` },
+      },
+      offset: parseInt(offset),
+      limit: parseInt(limit),
+    };
+    const { count, rows } = await Product.findAndCountAll(options);
+    return { count, rows };
   }
-  async findByEmail(email) {
-    const user = User.findOne({ where: { email } });
-    return user;
-  }
-
-  validatePassword(user, password) {
-    const hash = crypto.pbkdf2Sync(password, process.env.SALT, 500, 512, 'sha512').toString('hex');
-    return user.password === hash;
+  async createProduct({ name, category, brand, price }) {
+    const product = await Product.create({ name, category, brand, price });
+    return product.toJSON();
   }
 };

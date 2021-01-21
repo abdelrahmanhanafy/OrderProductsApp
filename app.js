@@ -4,16 +4,17 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 
-const userModel = require('./Core/user');
 const router = require('./routes');
 
 //Database
 const db = require('./Config/database');
 (async () => {
   try {
+    //Test the connection
     await db.authenticate();
     console.log('Database Connected...');
-    userModel.sync({ alter: true });
+    //Sync all the model of the database
+    await db.sync();
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
