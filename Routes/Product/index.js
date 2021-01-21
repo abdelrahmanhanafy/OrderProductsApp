@@ -1,12 +1,10 @@
 const express = require('express');
 
 const ProductRepo = require('../../Repository/product');
-const product = require('../../Core/product');
 const verifyToken = require('../../Helpers/verifyToken');
 
 const productRepo = new ProductRepo();
 const router = express.Router();
-
 
 router.get('/', verifyToken, async (req, res) => {
   try {

@@ -11,11 +11,11 @@ module.exports = async (req, res, next) => {
       req.authUser = authUser;
       next();
     } else {
-      throw new Error('you must provide a token in Authorization header');
+      res.status(403).send('You must provide a token in Authorization header');
     }
   } catch (err) {
     if (err) {
-      throw new Error(err.message);
+      res.status(403).send(err.message);
     }
   }
 };

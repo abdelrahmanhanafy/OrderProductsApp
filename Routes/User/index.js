@@ -39,7 +39,7 @@ router.post('/login', schema.validateUserCredentials(), async (req, res) => {
     res.send({ accessToken });
   } catch (err) {
     console.log(err);
-    res.status(400).send(err);
+    res.status(400).send(`Something went wrong`);
   }
 });
 
