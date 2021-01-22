@@ -11,6 +11,7 @@ router.post('/', verifyToken, async (req, res) => {
   try {
     const user = req.authUser;
     const products = req.body;
+    const amount = 0;
     //Create the order
     const order = await orderRepo.createOrder({ userId: user.id });
     const items = products.map((product) => {

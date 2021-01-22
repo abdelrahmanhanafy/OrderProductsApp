@@ -4,8 +4,8 @@
   "description": "App to order products ",
   "main": "app.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=produciton node app",
     "dev": "cross-env NODE_ENV=development nodemon app",
+    "test": "cross-env NODE_ENV=test mocha --timeout 100000",
     "format": "prettier --write ."
   },
   "author": "Abdelrahman Hanafy",
@@ -24,7 +24,12 @@
     "sequelize": "^6.4.0"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "cross-env": "^7.0.3",
+    "faker": "^5.1.0",
+    "mocha": "^8.2.1",
     "nodemon": "^2.0.7"
   }
 }
+  

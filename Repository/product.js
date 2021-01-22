@@ -20,4 +20,8 @@ module.exports = class ProductRepo {
     const product = await Product.create({ name, category, brand, price });
     return product.toJSON();
   }
+  async createProducts(items) {
+    const products = await Product.bulkCreate(items);
+    return products;
+  }
 };

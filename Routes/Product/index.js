@@ -28,9 +28,16 @@ router.get('/', verifyToken, async (req, res) => {
   }
 });
 
+router.post('/',  async (req, res) => {
+  try {
+    const {products} = req.body;
+    //Create the products
+    const items = await productRepo.createProducts(products);
+    res.send(items);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(`Something went wrong`);
+  }
+});
+
 module.exports = router;
-// const product = await Product.create({
-//   name:"mi 10 lite",
-//   category:'mobiles',
-//    brand:"xiaomi",
-//     price:'20000' });
