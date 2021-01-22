@@ -10,8 +10,8 @@ module.exports = class ProductRepo {
         brand: { [Op.like]: `%${brand ? brand.trim() : ''}%` },
         category: { [Op.like]: `%${category ? category.trim() : ''}%` },
       },
-      offset: parseInt(offset),
-      limit: parseInt(limit),
+      offset: parseInt(offset) || 0,
+      limit: parseInt(limit) || 10,
     };
     const { count, rows } = await Product.findAndCountAll(options);
     return { count, rows };

@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-module.exports = new Sequelize('nodemysql', 'root', 'password', {
+module.exports = new Sequelize('nodeSql', 'root', 'password', {
   host: 'localhost',
   dialect: 'mysql',
 });

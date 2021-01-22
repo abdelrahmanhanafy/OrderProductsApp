@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../Config/database');
+const Order = require('./order');
 
 const User = db.define(
   'User',
@@ -8,7 +9,7 @@ const User = db.define(
     email: {
       type: Sequelize.STRING,
       allowNull: false,
-      unique: true,
+      // unique: true,
       len: [3, 10],
       validate: {
         notNull: { msg: 'User must have an email' },
@@ -21,7 +22,7 @@ const User = db.define(
       allowNull: false,
     },
     balance: {
-      type: Sequelize.DECIMAL(4, 2),
+      type: Sequelize.DECIMAL(7, 2),
       allowNull: false,
       defaultValue: 0,
     },
@@ -31,5 +32,8 @@ const User = db.define(
   }
 );
 console.log(User === db.models.User); // true
+
+User.hasMany(Order);
+Order.belongsTo(User);
 
 module.exports = User;
