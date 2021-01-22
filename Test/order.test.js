@@ -10,43 +10,18 @@ const { afterEach } = require('mocha');
 const should = chai.should();
 chai.use(chaiHttp);
 
-//Test Orders
-// describe('Make an order',()=>{
-//   let token;
-//   beforeEach(async()=>{
-//     await chai.request(server).post('/api/auth/register').send(fifthUser);
-//     const res = await chai.request(server).post('/api/auth/login').send(fifthUser);
-//     token = res.body.accessToken;
-//   })
-//   it('request order successfully', async(done) => {
-//     const items =  await Product.bulkCreate(products);
-//     const orderItems = items.map((item) => {
-//       return {
-//         id: item.id,
-//         price: item.price,
-//         quantity: item.quantity,
-//       };
-//     });
-//     chai
-//       .request(server)
-//       .post('/api/auth/orders')
-//       .set('Authorization', 'Bearer ' + token)
-//       .send(orderItems)
-//       .end((err, res) => {
-//         res.should.have.status(200);
-//         done();
-//       });
-//   },30000);
-// })
+
 
 //Test view previous orders
 describe('View previous orders', () => {
+
   let token;
   before(async () => {
     await chai.request(server).post('/api/auth/register').send(fifthUser);
     const res = await chai.request(server).post('/api/auth/login').send(fifthUser);
     token = res.body.accessToken;
   });
+
   it('Fetch orders successfully', (done) => {
     chai
       .request(server)
@@ -58,6 +33,7 @@ describe('View previous orders', () => {
         done();
       });
   });
+  
   it('Fetch orders failed due to token is missing', (done) => {
     chai
       .request(server)

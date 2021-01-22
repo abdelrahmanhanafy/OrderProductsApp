@@ -1,5 +1,7 @@
 const { body } = require('express-validator');
 
+
+//Schema for validate the user credentials...
 module.exports = {
   validateUserCredentials() {
     return [

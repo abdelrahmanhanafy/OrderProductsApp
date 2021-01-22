@@ -11,8 +11,9 @@ const { firstUser, secondUser, thirdUser, forthUser } = require('./data');
 const should = chai.should();
 chai.use(chaiHttp);
 
-//Test User Registration
-describe('User Registration', () => {
+//Test User Registration and login 
+describe('User Registration and login', () => {
+
   before(async()=>{
    await chai.request(server).post('/api/auth/register').send(firstUser);
   })

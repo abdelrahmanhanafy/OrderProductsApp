@@ -10,12 +10,14 @@ chai.use(chaiHttp);
 
 //Test view products
 describe('View products', () => {
+
   let token;
   before(async () => {
     await chai.request(server).post('/api/auth/register').send(sixthUser);
     const res = await chai.request(server).post('/api/auth/login').send(sixthUser);
     token = res.body.accessToken;
   });
+
   it('Fetch products successfully', (done) => {
     chai
       .request(server)
@@ -27,6 +29,7 @@ describe('View products', () => {
         done();
       });
   });
+  
   it('Fetch products failed due to token is missing', (done) => {
     chai
       .request(server)

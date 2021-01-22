@@ -2,7 +2,12 @@ const Product = require('../Core/product');
 const { Op } = require('sequelize');
 
 module.exports = class ProductRepo {
+
   async getProducts(offset, limit, name, category, brand, balance) {
+
+    //Specify the options for filtering the products...
+    //All products shown to the user must be less than or equal his balance...
+    //Apply the filter by name, brand, category....
     const options = {
       where: {
         price: { [Op.lte]: balance },
